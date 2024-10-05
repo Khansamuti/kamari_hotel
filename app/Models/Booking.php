@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-    protected $primaryKey = 'booking_id';
+    use HasFactory;
 
     protected $fillable = [
-        'guest_id', 'check_in_date', 'check_out_date', 'price', 'adults', 'kids'
+        'name',
+        'email',
+        'phone',
+        'check_in_date',
+        'check_out_date',
+        'adults',
+        'kids',
+        'number_of_rooms',
+        'room_id',
     ];
-
-    // A booking can have many rooms (many-to-many relationship)
-    public function rooms()
-    {
-        return $this->belongsToMany(Room::class, 'booking_room', 'booking_id', 'room_id')
-                    ->withPivot('quantity')  // Access the quantity booked for each room type
-                    ->withTimestamps();
-    }
 }
-
