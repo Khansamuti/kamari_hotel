@@ -13,7 +13,7 @@
                     
                     <!-- Form action should point to your booking store route -->
                     <form action="{{ route('bookings.store') }}" method="POST">
-                        @csrf <!-- Laravel's CSRF protection -->
+                    @csrf <!-- Laravel's CSRF protection -->
 
                         <div class="row">
                             <!-- Name Field -->
@@ -77,18 +77,18 @@
                                 <div class="input-group">
                                     <select name="room_id" class="form-control" required>
                                         <option value="" disabled selected>Select Room Type</option>
-                                        <!-- Loop through rooms from the database -->
-                                        @foreach ($rooms as $room)
-                                            <option value="{{ $room->room_id }}" {{ old('room_id') == $room->room_id ? 'selected' : '' }}>
-                                                {{ $room->room_type }} ({{ $room->facilities }}) - ${{ number_format($room->price, 2) }}
-                                            </option>
-                                        @endforeach
+                                        <option value="standard_room" {{ old('room_id') == 'standard_room' ? 'selected' : '' }}>Standard Room</option>
+                                        <option value="elite_room" {{ old('room_id') == 'elite_room' ? 'selected' : '' }}>Elite Room</option>
+                                        <option value="deluxe_room" {{ old('room_id') == 'deluxe_room' ? 'selected' : '' }}>Deluxe Room</option>
                                     </select>
                                 </div>
                             </div>
 
+                            <!-- Submit Button -->
                             <div class="col-lg-12">
-                                <button type="submit">Book Now <i class="lnr lnr-arrow-right"></i></button>
+                                <button type="submit" class="btn btn-primary">
+                                    Book Now <i class="lnr lnr-arrow-right"></i>
+                                </button>
                             </div>
                         </div>
                     </form>
