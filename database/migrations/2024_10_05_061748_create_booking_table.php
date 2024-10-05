@@ -23,7 +23,7 @@ class CreateBookingsTable extends Migration
             $table->integer('adults');            // Number of adults
             $table->integer('kids')->default(0);  // Number of kids (default 0)
             $table->integer('number_of_rooms');   // Number of rooms booked
-            $table->string('room_id');            // Room type (you might want to define this more specifically based on your room structure)
+            $table->string('room_type');            // Room type (you might want to define this more specifically based on your room structure)
             $table->timestamps();                  // Created at and updated at timestamps
         });
     }

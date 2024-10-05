@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Booking; // Assuming you have a Booking model
+use App\Models\Payment; // Assuming you have a Payment model
 use Carbon\Carbon; // Import Carbon for date handling
 
 class BookingController extends Controller
@@ -20,7 +21,7 @@ class BookingController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
-            'check_in_date' => 'required|date_format:d-m-Y', // Adjusted validation rule
+            'check_in_date' => 'required|date_format:d-m-Y',
             'check_out_date' => 'required|date_format:d-m-Y',
             'adults' => 'required|integer|min:1',
             'kids' => 'required|integer|min:0',
@@ -33,7 +34,7 @@ class BookingController extends Controller
         $checkOutDate = Carbon::createFromFormat('d-m-Y', $request->check_out_date)->format('Y-m-d');
 
         // Create a new booking with formatted dates
-        Booking::create([
+        $booking = Booking::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -45,7 +46,7 @@ class BookingController extends Controller
             'room_id' => $request->room_id,
         ]);
 
-        // Redirect to payment page with success message
-        return redirect()->route('payment')->with('success', 'Booking created successfully!');
+        // Redirect to the payment page with the booking ID
+        return redirect()->route('payment.create', ['booking_id' => $booking->id]);
     }
 }
