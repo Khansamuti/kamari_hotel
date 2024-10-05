@@ -49,6 +49,10 @@ Route::get('/news', function () {
     return view('news');
 });
 
+Route::get('/bookingroom', function () {
+    return view('booking-room');
+});
+
 Route::get('/bookingform', function () {
     // Fetch available rooms from the database (rooms with 'Available' status)
     $rooms = Room::where('status', 'Available')->get();

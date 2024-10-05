@@ -99,19 +99,21 @@
                                 <div class="datepicker">
                                     <div class="date-select">
                                         <p>From</p>
-                                        <input type="text" class="datepicker-1" value="dd / mm / yyyy">
+                                        <!-- <input type="text" class="datepicker-1" value="dd / mm / yyyy"> -->
+                                        <input type="text" id="checkin" name="check_in_date" placeholder="Check-in Date" value="{{ old('check_in_date') }}" required readonly>
                                         <img src="img/calendar.png" alt="">
                                     </div>
                                     <div class="date-select to">
                                         <p>To</p>
-                                        <input type="text" class="datepicker-2" value="dd / mm / yyyy">
+                                        <!-- <input type="text" class="datepicker-2" value="dd / mm / yyyy"> -->
+                                        <input type="text" id="checkout" name="check_out_date" placeholder="Check-out Date" value="{{ old('check_out_date') }}" required readonly>
                                         <img src="img/calendar.png" alt="">
                                     </div>
                                 </div>
                                 <div class="room-quantity">
                                     <div class="single-quantity">
                                         <p>Adults</p>
-                                        <div class="pro-qty"><input type="text" value="0"></div>
+                                        <div class="pro-qty"><input type="text" value="1"></div>
                                     </div>
                                     <div class="single-quantity">
                                         <p>Children</p>
@@ -119,7 +121,7 @@
                                     </div>
                                     <div class="single-quantity last">
                                         <p>Rooms</p>
-                                        <div class="pro-qty"><input type="text" value="0"></div>
+                                        <div class="pro-qty"><input type="text" value="1"></div>
                                     </div>
                                 </div>
                                 <div class="room-selector">
@@ -201,6 +203,28 @@
     </div>
     <!-- Facilities Section End -->
 
+@endsection
+
+@section('scripts')
+<script>
+    // Initialize Datepicker
+    $(function () {
+        $("#checkin, #checkout").datepicker({
+            dateFormat: "dd-mm-yy",
+            minDate: 0,
+            onSelect: function (selectedDate) {
+                var option = this.id == "checkin" ? "minDate" : "maxDate",
+                    instance = $(this).data("datepicker"),
+                    date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+                if (this.id == "checkin") {
+                    $("#checkout").datepicker("option", "minDate", date);
+                } else {
+                    $("#checkin").datepicker("option", "maxDate", date);
+                }
+            }
+        });
+    });
+</script>
 @endsection
 
 @section('scripts')
