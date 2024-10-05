@@ -2,33 +2,86 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Room;
+use App\Models\Booking;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    public function availableRooms(Request $request)
+    public function index(Request $request)
     {
-        // Capture search and filter inputs
-        $search = $request->input('search');
-        $room_type = $request->input('room_type');
+        if ($request->ajax()) {
+            return $this->getMonthAvailability($request);
+        }
+
+        $date = $request->input('date', now()->format('Y-m-d'));
+        $roomType = $request->input('room_type');
         $status = $request->input('status');
 
-        // Query the rooms table and apply filters dynamically
         $rooms = Room::query()
-            ->when($search, function ($query, $search) {
-                return $query->where('room_id', 'like', "%{$search}%")
-                             ->orWhere('room_type', 'like', "%{$search}%");
+            ->when($roomType, function ($query) use ($roomType) {
+                return $query->where('room_type', $roomType);
             })
-            ->when($room_type, function ($query, $room_type) {
-                return $query->where('room_type', $room_type);
-            })
-            ->when($status, function ($query, $status) {
+            ->when($status, function ($query) use ($status) {
                 return $query->where('status', $status);
+            })
+            ->whereNotIn('room_id', function ($query) use ($date) {
+                $query->select('room_id')
+                    ->from('bookings')
+                    ->where('check_in_date', '<=', $date)
+                    ->where('check_out_date', '>', $date);
             })
             ->get();
 
-        // Return the view with the filtered rooms
-        return view('rooms.available', compact('rooms'));
+        return view('room-avail', compact('rooms'));
     }
+
+    private function getMonthAvailability(Request $request)
+    {
+        $start = Carbon::parse($request->start)->startOfDay();
+        $end = Carbon::parse($request->end)->endOfDay();
+
+        // Get all bookings within the date range
+        $bookings = Booking::where(function ($query) use ($start, $end) {
+            $query->whereBetween('check_in_date', [$start, $end])
+                  ->orWhereBetween('check_out_date', [$start, $end]);
+        })->get();
+
+        // Get all rooms
+        $rooms = Room::all();
+
+        $events = [];
+        for ($date = $start; $date->lte($end); $date->addDay()) {
+            $dateStr = $date->format('Y-m-d');
+            $availability = [
+                'Standard Room' => 0,
+                'Elite Room' => 0,
+                'Deluxe Room' => 0,
+                'Total Available' => 0, // Track total available rooms
+            ];
+
+            foreach ($rooms as $room) {
+                $isBooked = $bookings->contains(function ($booking) use ($date, $room) {
+                    return $booking->room_id === $room->room_id &&
+                           $date->between($booking->check_in_date, $booking->check_out_date);
+                });
+
+                if (!$isBooked) {
+                    // Increment the count for the actual room type from the database
+                    $availability[$room->room_type]++;
+                    $availability['Total Available']++; // Increment total available count
+                }
+            }
+
+            $events[] = [
+                'start' => $dateStr,
+                'title' => 'Available Rooms',
+                'extendedProps' => $availability
+            ];
+        }
+
+        return response()->json($events);
+    }
+
 }
