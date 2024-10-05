@@ -49,14 +49,6 @@ Route::get('/news', function () {
     return view('news');
 });
 
-Route::get('/payment', function () {
-    return view('payment');
-});
-
-Route::get('/bookingroom', function () {
-    return view('booking-room');
-});
-
 Route::get('/bookingform', function () {
     // Fetch available rooms from the database (rooms with 'Available' status)
     $rooms = Room::where('status', 'Available')->get();
@@ -65,18 +57,16 @@ Route::get('/bookingform', function () {
     return view('booking-form', ['rooms' => $rooms]);
 });
 
-// Route to show the booking form (e.g., /bookings/create)
-Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
+Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create'); // Display form
+Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store'); // Handle form submission
 
-// Route to store a new booking (this is the one you are missing)
-Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
-
-// Route to view all bookings (optional, for listing bookings)
-Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
+Route::get('/payment/{bookingId}', [PaymentController::class, 'create'])->name('payment.create');
+Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
 
 Route::get('/stafflogin', function () {
     return view('staff-login');
 });
+
 
 Route::get('/bookinghistory', function () {
     return view('history');
@@ -86,10 +76,6 @@ Route::get('/availablerooms', function () {
     $rooms = Room::all(); 
     return view('room-avail', ['rooms' => $rooms]);
 })->name('rooms.available');
-
-
-
-
 
 
 
@@ -120,3 +106,4 @@ Route::get('/foodorder', function () {
 Route::get('/management', function () {
     return view('management');
 });
+
