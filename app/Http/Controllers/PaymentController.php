@@ -68,7 +68,7 @@ class PaymentController extends Controller
             'booking_id' => 'required|exists:bookings,id',
             'bank' => 'required|string|max:255',
             'virtual_account' => 'required|string|max:255',
-            'total_amount' => 'required|numeric',
+            'amount' => 'required|numeric', //ubah
         ]);
 
         // Create a new payment record
@@ -76,7 +76,7 @@ class PaymentController extends Controller
             'booking_id' => $request->booking_id,
             'bank' => $request->bank,
             'virtual_account' => $request->virtual_account,
-            'total_amount' => $request->total_amount,
+            'amount' => $request->amount, //ubah
         ]);
 
         //return redirect()->route('success.page')->with('success', 'Payment completed successfully!');

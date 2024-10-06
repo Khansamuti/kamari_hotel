@@ -56,7 +56,7 @@
                 @csrf
                 <!-- Hidden Fields -->
                 <input type="hidden" name="booking_id" value="{{ $booking->id }}">
-                <input type="hidden" name="total_amount" value="{{ $totalAmount }}">
+                <input type="hidden" name="amount" value="{{ $totalAmount }}">
                 <input type="hidden" name="bank" id="hidden-bank" value="">
                 <input type="hidden" name="virtual_account" id="hidden-virtual-account" value="">
 
@@ -68,13 +68,19 @@
         function generateVirtualAccount() {
             const bankSelect = document.getElementById('bank-select');
             const virtualAccountInput = document.getElementById('virtual-account');
+            const hiddenBankInput = document.getElementById('hidden-bank'); //tambah
+            const hiddenVirtualAccountInput = document.getElementById('hidden-virtual-account');
             
             if (bankSelect.value) {
                 // Generate a random 12-digit number
                 const randomAccountNumber = Math.floor(100000000000 + Math.random() * 900000000000);
                 virtualAccountInput.value = randomAccountNumber;
+                hiddenBankInput.value = bankSelect.options[bankSelect.selectedIndex].text; // Update hidden bank input (tambah)
+                hiddenVirtualAccountInput.value = randomAccountNumber; // Update hidden virtual account input
             } else {
                 virtualAccountInput.value = ''; // Clear the input if no bank is selected
+                hiddenBankInput.value = ''; // Clear hidden bank input (tambah)
+                hiddenVirtualAccountInput.value = ''; // Clear hidden virtual account input
             }
         }
         </script>

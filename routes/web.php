@@ -5,6 +5,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PaymentController;
 use App\Models\Room;
+use App\Models\Payment;
 
 Route::get('/', function () {
     return view('index');

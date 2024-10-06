@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Booking; // Assuming you have a Booking model
 use App\Models\Payment; // Assuming you have a Payment model
 use Carbon\Carbon; // Import Carbon for date handling
+use App\Http\Controllers\BookingController;
 
 class BookingController extends Controller
 {

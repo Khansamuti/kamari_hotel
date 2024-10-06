@@ -40,10 +40,10 @@
                     <div class="col-lg-6">
                         <div class="room-text">
                             <div class="room-title">
-                                <h2>Single Room</h2>
+                                <h2>Standard Room</h2>
                                 <div class="room-price">
                                     <span>From</span>
-                                    <h5>1.720.000 IDR</h5>
+                                    <h5>400.000 IDR</h5>
                                     <sub>/night</sub>
                                 </div>
                             </div>
@@ -93,10 +93,10 @@
                     <div class="col-lg-6">
                         <div class="room-text">
                             <div class="room-title">
-                                <h2>Double Room</h2>
+                                <h2>Elite Room</h2>
                                 <div class="room-price">
                                     <span>From</span>
-                                    <h5>1.292.000 IDR</h5>
+                                    <h5>700.000 IDR</h5>
                                     <sub>/night</sub>
                                 </div>
                             </div>
@@ -146,10 +146,10 @@
                     <div class="col-lg-6">
                         <div class="room-text">
                             <div class="room-title">
-                                <h2>Junior Suite</h2>
+                                <h2>Deluxe Room</h2>
                                 <div class="room-price">
                                     <span>From</span>
-                                    <h5>2.520.000 IDR</h5>
+                                    <h5>1.000.000 IDR</h5>
                                     <sub>/night</sub>
                                 </div>
                             </div>
@@ -199,10 +199,10 @@
                     <div class="col-lg-6">
                         <div class="room-text">
                             <div class="room-title">
-                                <h2>Standard Room</h2>
+                                <h2>Junior Suite</h2>
                                 <div class="room-price">
                                     <span>From</span>
-                                    <h5>900.000 IDR</h5>
+                                    <h5>1.500.000 IDR</h5>
                                     <sub>/night</sub>
                                 </div>
                             </div>
