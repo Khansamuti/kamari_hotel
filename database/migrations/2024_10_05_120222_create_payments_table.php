@@ -15,6 +15,9 @@ class CreatePaymentsTable extends Migration
             $table->string('virtual_account');
             $table->decimal('total_amount', 10, 2);
             $table->timestamps();
+
+            // Foreign key constraint jika ada tabel bookings
+            $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');
         });
     }
 

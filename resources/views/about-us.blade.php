@@ -26,16 +26,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 offset-lg-1">
-                    <h2>“Blabla”.</h2>
+                    <h2>“Kamari Hotel”</h2>
                 </div>
             </div>
             <div class="about-para">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <!-- <div class="col-lg-6">
                         <p>Blabla</p>
-                    </div>
-                    <div class="col-lg-6">
-                        <p>Blabla</p>
+                    </div> -->
+                    <div class="col-lg-12" style="text-align: center;">
+                        <p>Located in the heart of eastern Surabaya, Kamari Hotel offers a serene atmosphere of private residence in the middle of a bustling city.</p>
+                        <p>Stay with me, feels like Home.</p>
                     </div>
                 </div>
             </div>
@@ -50,7 +51,7 @@
                 <div class="col-lg-6">
                     <div class="gallery-text">
                         <h2>Hotel Gallery</h2>
-                        <p>Blabla</p>
+                        <p>Introducing Kamari Hotel</p>
                         <a href="#" class="primary-btn">View Gallery <i class="lnr lnr-arrow-right"></i></a>
                     </div>
                 </div>

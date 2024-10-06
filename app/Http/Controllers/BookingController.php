@@ -47,6 +47,7 @@ class BookingController extends Controller
         ]);
 
         // Redirect to the payment page with the booking ID
-        return redirect()->route('payment.create', ['booking_id' => $booking->id]);
+        //return redirect()->route('payment.create', ['bookingId' => $booking->id]);
+        return redirect()->route('payment.show', ['bookingId' => $booking->id]);
     }
 }

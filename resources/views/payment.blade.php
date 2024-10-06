@@ -8,10 +8,10 @@
         <!-- Bagian Kiri: Preview Kamar -->
         <div class="payment-room-preview">
             <img src="img/room/rooms-2.jpg" alt="Room Preview">
-            <h2>Junior Suite</h2>
+            <h2>{{$roomType->room_type}}</h2>
             <p>A comfortable room with a queen-sized bed, sea view, and modern amenities.</p>
-            <p>Check-in: 20th September | Check-out: 23rd September</p>
-            <p>Price per night: Rp 1.500.000</p>
+            <p>Check-in: {{$checkInDate}} | Check-out:{{$checkOutDate}}</p>
+            <p>Price per night: Rp {{$roomType->price}}</p>
         </div>
 
             <!-- Bagian Kanan: Rincian Pembayaran -->
@@ -20,16 +20,16 @@
 
             <!-- Harga Kamar -->
             <div class="payment-price-details">
-                <p>Price per night<span>Rp 1.500.000</span></p>
-                <p>Total Night<span>3 nights</span></p>
-                <p>Additional Fees<span>Rp 200.000</span></p>
-                <p>Service & Charge<span>Rp 300.000</span></p>
+                <p>Price per night<span>Rp {{$roomType->price}}</span></p> <!--ubah-->
+                <p>Total Night<span>{{$totalNights}} nights</span></p>
+                <!-- <p>Additional Fees<span>Rp 200.000</span></p> -->
+                <p>Service & Charge<span>Rp {{$serviceCharge}}</span></p>
             </div>
 
             <!-- Total -->
             <div class="payment-total">
                 <span>Total (IDR)</span>
-                <span>Rp 5.000.000</span>
+                <span>Rp {{$totalAmount}}</span>
             </div>
 
             <!-- Pilih Bank -->
@@ -51,8 +51,16 @@
             </div>
 
             <!-- Tombol Bayar -->
-            <form action="/myroom">
-                <button class="payment-btn-block">Pay</button>
+            <!-- <form action="/myroom"> -->
+            <form action="{{ route('payments.store') }}" method="POST">
+                @csrf
+                <!-- Hidden Fields -->
+                <input type="hidden" name="booking_id" value="{{ $booking->id }}">
+                <input type="hidden" name="total_amount" value="{{ $totalAmount }}">
+                <input type="hidden" name="bank" id="hidden-bank" value="">
+                <input type="hidden" name="virtual_account" id="hidden-virtual-account" value="">
+
+                <button type="submit" class="payment-btn-block">Pay</button>
             </form>
         </div>
 
