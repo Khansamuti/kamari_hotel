@@ -78,6 +78,9 @@ Route::get('/bookinghistory', function () {
 
 Route::get('/availablerooms', [RoomController::class, 'index'])->name('rooms.availability');
 
+Route::get('/receptionist-form', [BookingTableController::class, 'create'])->name('book.room');
+Route::post('/receptionist-form', [BookingTableController::class, 'store'])->name('store.room');
+
 Route::get('/bookingtable', function () {
     return view('booking-tabel');
 });
