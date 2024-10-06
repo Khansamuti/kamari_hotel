@@ -85,10 +85,9 @@
                             </div>
 
                             <!-- Submit Button -->
+                            <!-- <a href="/payment" class="primary-btn">Book Now <i class="lnr lnr-arrow-right"></i></a> -->
                             <div class="col-lg-12">
-                                <button type="submit" class="btn btn-primary">
-                                    Book Now <i class="lnr lnr-arrow-right"></i>
-                                </button>
+                                <button type="submit" class="btn btn-primary">Book Now <i class="lnr lnr-arrow-right"></i></button>
                             </div>
                         </div>
                     </form>
