@@ -76,12 +76,7 @@ Route::get('/bookinghistory', function () {
     return view('history');
 });
 
-Route::get('/availablerooms', function () {
-    $rooms = Room::all(); 
-    return view('room-avail', ['rooms' => $rooms]);
-})->name('rooms.available');
-
-
+Route::get('/availablerooms', [RoomController::class, 'index'])->name('rooms.availability');
 
 Route::get('/bookingtable', function () {
     return view('booking-tabel');
