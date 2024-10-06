@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PaymentController;
 use App\Models\Room;
 
 Route::get('/', function () {
@@ -64,7 +65,10 @@ Route::get('/bookingform', function () {
 Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create'); // Display form
 Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store'); // Handle form submission
 
-Route::get('/payment/{bookingId}', [PaymentController::class, 'create'])->name('payment.create');
+Route::get('/payment/{bookingId}', [PaymentController::class, 'show'])->name('payment.show'); //tambah
+
+Route::get('/payment', function () {return view('payment');}); //tambah
+Route::post('/payment/{bookingId}', [PaymentController::class, 'create'])->name('payment.create'); //ubah get->post
 Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
 
 Route::get('/stafflogin', function () {
@@ -108,4 +112,3 @@ Route::get('/foodorder', function () {
 Route::get('/management', function () {
     return view('management');
 });
-
