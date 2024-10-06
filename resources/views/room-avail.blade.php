@@ -51,6 +51,7 @@
                                 <th>Status</th>
                                 <th>Price</th>
                                 <th>Facilities</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,6 +62,14 @@
                                 <td><span class="status-{{ strtolower($room->status) }}">{{ $room->status }}</span></td>
                                 <td>{{ $room->price }}</td>
                                 <td>{{ $room->facilities }}</td>
+                                <td>
+                                    @if(strtolower($room->status) == 'available')
+                                        <a href="{{ route('book.room', ['room_id' => $room->room_id]) }}" class="btn btn-success btn-sm">Book Now</a>
+                                    @else
+                                        <button class="btn btn-secondary btn-sm" disabled>Unavailable</button>
+                                    @endif
+                                </td>
+
                             </tr>
                             @endforeach
                         </tbody>
